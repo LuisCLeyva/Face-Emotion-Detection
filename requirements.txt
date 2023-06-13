@@ -1,5 +1,4 @@
 numpy==1.23.5
-streamlit~=0.87.0
 keras==2.12.0
 opencv-contrib-python-headless
 tensorflow-cpu
