@@ -1,5 +1,5 @@
 numpy
 keras
 opencv-contrib-python-headless
-tensorflow-cpu==2.11.0
+tensorflow-cpu
 streamlit_webrtc
