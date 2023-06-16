@@ -1,8 +1,5 @@
 numpy
-<<<<<<< HEAD
 streamlit
-=======
->>>>>>> 6739f7d3083280773d5208e6cc46c9e09b1ed878
 keras
 opencv-contrib-python-headless
 tensorflow-cpu
