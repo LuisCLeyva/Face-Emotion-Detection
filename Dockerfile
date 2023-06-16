@@ -12,4 +12,5 @@ COPY . /app
 
 ENTRYPOINT ["streamlit", "run"]
 
-CMD ["app.py"]
+#CMD ["app.py"]
+CMD streamlit run --server.port $PORT app.py
