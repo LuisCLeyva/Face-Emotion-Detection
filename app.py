@@ -4,7 +4,7 @@ import streamlit as st
 from tensorflow import keras
 from keras.models import model_from_json
 from tensorflow.keras.utils import img_to_array
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase,RTCConfiguration
 
 # load model
 emotion_dict = {0:'angry', 1 :'happy', 2: 'neutral', 3:'sad', 4: 'surprise'}
@@ -54,10 +54,10 @@ def main():
     st.title("Real Time Face Emotion Detection Application")
     activiteis = ["Home", "Webcam Face Detection", "About"]
     choice = st.sidebar.selectbox("Select Activity", activiteis)
-    st.sidebar.markdown(
-        """ Developed by Mohammad Juned Khan    
-            Email : Mohammad.juned.z.khan@gmail.com  
-            [LinkedIn] (https://www.linkedin.com/in/md-juned-khan)""")
+    # st.sidebar.markdown(
+    #     """ Developed by Mohammad Juned Khan    
+    #         Email : Mohammad.juned.z.khan@gmail.com  
+    #         [LinkedIn] (https://www.linkedin.com/in/md-juned-khan)""")
     if choice == "Home":
         html_temp_home1 = """<div style="background-color:#6D7B8D;padding:10px">
                                             <h4 style="color:white;text-align:center;">
@@ -76,26 +76,32 @@ def main():
     elif choice == "Webcam Face Detection":
         st.header("Webcam Live Feed")
         st.write("Click on start to use webcam and detect your face emotion")
-        webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
+        webrtc_streamer(key="key",video_processor_factory=VideoTransformer,
+                rtc_configuration=RTCConfiguration(
+                    {
+                        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+                    }
+                )
+            )
 
-    elif choice == "About":
-        st.subheader("About this app")
-        html_temp_about1= """<div style="background-color:#6D7B8D;padding:10px">
-                                    <h4 style="color:white;text-align:center;">
-                                    Real time face emotion detection application using OpenCV, Custom Trained CNN model and Streamlit.</h4>
-                                    </div>
-                                    </br>"""
-        st.markdown(html_temp_about1, unsafe_allow_html=True)
+    # elif choice == "About":
+    #     st.subheader("About this app")
+    #     html_temp_about1= """<div style="background-color:#6D7B8D;padding:10px">
+    #                                 <h4 style="color:white;text-align:center;">
+    #                                 Real time face emotion detection application using OpenCV, Custom Trained CNN model and Streamlit.</h4>
+    #                                 </div>
+    #                                 </br>"""
+    #     st.markdown(html_temp_about1, unsafe_allow_html=True)
 
-        html_temp4 = """
-                             		<div style="background-color:#98AFC7;padding:10px">
-                             		<h4 style="color:white;text-align:center;">This Application is developed by Mohammad Juned Khan using Streamlit Framework, Opencv, Tensorflow and Keras library for demonstration purpose. If you're on LinkedIn and want to connect, just click on the link in sidebar and shoot me a request. If you have any suggestion or wnat to comment just write a mail at Mohammad.juned.z.khan@gmail.com. </h4>
-                             		<h4 style="color:white;text-align:center;">Thanks for Visiting</h4>
-                             		</div>
-                             		<br></br>
-                             		<br></br>"""
+    #     html_temp4 = """
+    #                          		<div style="background-color:#98AFC7;padding:10px">
+    #                          		<h4 style="color:white;text-align:center;">This Application is developed by Mohammad Juned Khan using Streamlit Framework, Opencv, Tensorflow and Keras library for demonstration purpose. If you're on LinkedIn and want to connect, just click on the link in sidebar and shoot me a request. If you have any suggestion or wnat to comment just write a mail at Mohammad.juned.z.khan@gmail.com. </h4>
+    #                          		<h4 style="color:white;text-align:center;">Thanks for Visiting</h4>
+    #                          		</div>
+    #                          		<br></br>
+    #                          		<br></br>"""
 
-        st.markdown(html_temp4, unsafe_allow_html=True)
+    #     st.markdown(html_temp4, unsafe_allow_html=True)
 
     else:
         pass
